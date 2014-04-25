@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+#map{
+	background-image:url("img/parchment2.jpg");
+}
+
+</style>
+<body>
+<link type="text/css" rel="stylesheet" href="worldMap.css"/>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src = "zoomableWorldMap.js"></script>
+
+<div id="map" style="width: 1296px;"></div>
+<script>
+
+var sample,sample2,cMap,s_m;
+
+function randomData()
+{
+	var data = [];
+	for(var i=0; i<41;i++)
+	{
+		data[i] = Math.floor((Math.random())*100);
+	}
+	return data;
+}
+
+
+var dataArr = randomData();
+
+var q = queue();
+
+q.defer(d3.json, "countriesTopo.json");
+q.defer(d3.tsv,"bwrDataSimplified2.tsv");
+q.await(readMapData);
+
+function readMapData(error,countries,boats) {
+
+cMap = WorldMap()
+			.mapJSON(countries);
+			
+
+// create array of arrays for boats
+//var totalBoats = boats[boats.length-1].id-boats[0].id+1;
+
+		
+/*d3.select("#map")
+		.datum(boatsArr)
+		.call(cMap);*/
+
+
+//map = new choroplethMap(collection,sample);
+//map2 = new choroplethMap(collection,sample);
+};
+
+
+
+</script>
+
+</body>
